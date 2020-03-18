@@ -14,6 +14,13 @@ class PokemonsController < ApplicationController
         name = Faker::Name.first_name
         species = Faker::Games::Pokemon.name
         # byebug
-        Pokemon.create(nickname: name, species: species, trainer_id: params["_json"])
+        newPokemon = Pokemon.create(nickname: name, species: species, trainer_id: params["_json"])
+        render json: newPokemon
+    end
+
+    def destroy
+        pokemon = Pokemon.find(params[:id])
+        pokemon.destroy
+
     end
 end

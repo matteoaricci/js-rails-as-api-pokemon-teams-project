@@ -86,11 +86,22 @@ function addPokemon(event) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload)
-    }).then(response => console.log(response))
-    // .then(json => console.log(json))
+    }).then(resp => resp.json())
+    .then(newPokemon => showPokemon(newPokemon)
+    )
 }
 
 function removePokemon(event) {
-    event.target.parentElement.remove()
     //* REMOVE FROM DATABASE
+    let payload = event.target.parentElement
+    let pokeId = event.target.dataset.pokemonId
+    
+    fetch(`${POKEMONS_URL}/${pokeId}` , {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+            // ,'Access-Control-Allow-Methods': "DELETE"
+        }
+    })
+    payload.remove()
 }
