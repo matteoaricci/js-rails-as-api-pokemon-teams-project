@@ -80,15 +80,19 @@ function showPokemon(pokemon){
 
 function addPokemon(event) {
     let payload = event.target.parentElement.trainer
-    fetch(POKEMONS_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload)
-    }).then(resp => resp.json())
-    .then(newPokemon => showPokemon(newPokemon)
-    )
+    if (event.target.parentElement.querySelectorAll('li').length < 6) {    
+        fetch(POKEMONS_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        }).then(resp => resp.json())
+        .then(newPokemon => showPokemon(newPokemon)
+        )
+    } else {
+        alert("You can't have more than six pokemon!!!")
+    }
 }
 
 function removePokemon(event) {
